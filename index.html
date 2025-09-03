@@ -1,46 +1,512 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>寒假作业</title>
-	</head>
-	<body style="background-color: #829dc8;">
-		<table border="1">
-		<tr>
-		<td>序号</td>
-		<td>操作</td>
-		<td>时间</td>
-		<td>图片</td>
-		</tr>
-		<tr>
-		<td>1</td>
-		<td>准备5张干豆腐切片、2根尖椒、一小勺盐、鸡精</br>30ml油、15ml酱油、200ml水、一段葱花</td>
-		<td>3分钟</td>
-		<td><img src="1.png"/></td>
-		</tr>
-		<tr>
-		<td>2</td>
-		<td>锅中放油，下入葱花和干豆腐，稍加翻炒</td>
-		<td>2分钟</td>
-		<td><img src="2.png"/></td>
-		</tr>
-		<tr>
-		<td>3</td>
-		<td>再加入酱油、盐和水，继续翻炒</td>
-		<td>5分钟</td>
-		<td><img src="3.png"/></td>
-		</tr>
-		<tr>
-		<td>4</td>
-		<td>5分钟后加入辣椒，继续</td>
-		<td>10分钟</td>
-		<td><img src="4.png"/></td>
-		</tr>
-		<td>5</td>
-		<td>待辣椒变翠绿，加入鸡精，即可勾芡出锅</td>
-		<td>2分钟</td>
-		<td><img src="5.png"/></td>
-		</tr>
-		</table>
-		<a href="/zuowen.doc">作文</a>
-	</body>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/resources/images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 顶部导航栏样式 */
+        header {
+            background: linear-gradient(135deg, #1a6fc4 0%, #2c3e50 100%);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .topnav {
+            display: flex;
+            justify-content: center;
+            list-style-type: none;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .topnav li {
+            margin: 0;
+        }
+        
+        .topnav a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 18px 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+        }
+        
+        .topnav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .topnav a.active {
+            background-color: #ff9800;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .topnav a.active:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 3px;
+            background-color: white;
+        }
+        
+        /* 班级标题样式 */
+        .class-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(to right, #1a6fc4, #2c3e50);
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .class-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .class-header img {
+            margin: 0 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .class-header p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* 轮播图样式 */
+        .slideshow-container {
+            max-width: 1000px;
+            position: relative;
+            margin: 30px auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .mySlides {
+            display: none;
+        }
+        
+        .mySlides img {
+            width: 100%;
+            vertical-align: middle;
+            height: 450px;
+            object-fit: cover;
+        }
+        
+        .slide-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 10px;
+            font-size: 18px;
+        }
+        
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+        
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+        
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .dots {
+            text-align: center;
+            padding: 15px 0;
+        }
+        
+        .dot {
+            cursor: pointer;
+            height: 12px;
+            width: 12px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+        
+        .active-dot, .dot:hover {
+            background-color: #1a6fc4;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card h2 {
+            color: #1a6fc4;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+            display: flex;
+            align-items: center;
+        }
+        
+        .card h2 i {
+            margin-right: 10px;
+            color: #ff9800;
+        }
+        
+        /* 公告样式 */
+        .announcement-list {
+            list-style: none;
+        }
+        
+        .announcement-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .announcement-item:last-child {
+            border-bottom: none;
+        }
+        
+        .announcement-date {
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+        
+        .announcement-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .announcement-content {
+            color: #555;
+        }
+        
+        /* 班级信息样式 */
+        .class-info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .info-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .info-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .info-item i {
+            font-size: 2rem;
+            color: #1a6fc4;
+            margin-bottom: 10px;
+        }
+        
+        .info-item h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        /* 日历样式 */
+        .calendar {
+            width: 100%;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .calendar-table th {
+            padding: 10px;
+            text-align: center;
+            background-color: #f1f5f9;
+        }
+        
+        .calendar-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+        
+        .calendar-table .today {
+            background-color: #1a6fc4;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .calendar-table .event {
+            color: #ff9800;
+            font-weight: bold;
+        }
+        
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .teacher-card {
+            text-align: center;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .teacher-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid #1a6fc4;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a6fc4 100%);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        
+        .social-links {
+            margin-bottom: 20px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 50%;
+            margin: 0 8px;
+            transition: background 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links {
+            margin: 20px 0;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <ul class="topnav">
+            <li><a class="active" href="/"><i class="fas fa-home"></i> 主页</a></li>
+            <li><a href="https://ry24-1.github.io" target="_blank"><i class="fas fa-school"></i> 班级网站</a></li>
+            <li><a href="https://xwqin2022.github.io" target="_blank"><i class="fas fa-user"></i> 个人网站</a></li>
+        </ul>
+    </header>
+
+    <div class="class-header">
+        <h1>假期作业</h1>
+        <p>勤奋、求实、创新</p>
+    </div>
+    <br>
+    <div class="main-content">
+        <div class="left-column">
+            <div class="card">
+                <h2><i class="fas fa-bullhorn"></i> 作业文件</h2>
+                <ul class="announcement-list">
+                    <li class="announcement-item">
+                        <div class="announcement-date">道德与法治</div>
+                        <div class="announcement-title">亦体验—实习报告</div>
+                        <div class="announcement-content"><a href="1.docx">我自幼便觉，铁道是镌刻在大地上的…</a></div>
+                    </li>
+                    <li class="announcement-item">
+                        <div class="announcement-date">道德与法治</div>
+                        <div class="announcement-title">七年级单元思维导图</div>
+                        <div class="announcement-content"><a href="1.pdf">1.新的身份|新的任务|新的目标…</a></div>
+                    </li>
+					<li class="announcement-item">
+					    <div class="announcement-date">道德与法治</div>
+					    <div class="announcement-title">社会热点分析</div>
+					    <div class="announcement-content"><a href="2.docx">武大图书馆事件自爆发以来…</a></div>
+					</li>
+					<li class="announcement-item">
+					    <div class="announcement-date">道德与法治</div>
+					    <div class="announcement-title">社区服务活动报告</div>
+					    <div class="announcement-content"><a href="3.docx">我很小就投身于公益服务中了…</a></div>
+					</li>
+					<li class="announcement-item">
+					    <div class="announcement-date">道德与法治</div>
+					    <div class="announcement-title">家庭角色体验报告</div>
+					    <div class="announcement-content"><a href="4.docx">那个第七天，我靠在灶台边，忽然…</a></div>
+					</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="card">
+                <h2><i class="fas fa-calendar-alt"></i> 回家历</h2>
+                <div class="calendar">
+                    <table class="calendar-table">
+                        <tr>
+                            <th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th>
+                        </tr>
+                        <tr>
+                            <td class="event">9/1</td><td class="event">2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td>
+                        </tr>
+                        <tr>
+                            <td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td class="event">14</td>
+                        </tr>
+                        <tr>
+                            <td>15</td><td>16</td><td>17</td><td>18</td><td>19</td><td>20</td><td class="event">21</td>
+                        </tr>
+                        <tr>
+                            <td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td>
+                        </tr>
+                        <tr>
+                            <td>29</td><td>30</td><td>31</td><td></td><td></td><td></td><td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-info-circle"></i> 作业信息</h2>
+                <div class="class-info-grid">
+                    <div class="info-item">
+                        <i class="fa fa-file-text"></i>
+                        <h3>文件数量</h3>
+                        <p>5/个</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fa fa-pie-chart"></i>
+                        <h3>暂涵科目</h3>
+                        <p>道德与法治</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-weixin"></i></a>
+            <a href="#"><i class="fab fa-qq"></i></a>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="#">关于我们</a>
+            <a href="#">联系方式</a>
+            <a href="#">隐私政策</a>
+        </div>
+        <div class="copyright">
+            <p>版权所有 &copy; 2025 xwqin</p>
+        </div>
+    </footer>
+</body>
 </html>
